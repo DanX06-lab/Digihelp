@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DigiHelp – WebAssembly Powered Lessons</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .lesson-buttons {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 0.5em;
+      font-size: 16px;
+      border: none;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #lesson {
+      white-space: pre-wrap;
+      background-color: white;
+      padding: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <h1>DigiHelp – Learn Digital Skills</h1>
+  <p>Click a button below to read a digital literacy lesson powered by C++ and WebAssembly:</p>
+
+  <div class="lesson-buttons">
+    <button onclick="showLesson('whatsappLesson')">WhatsApp Lesson</button>
+    <button onclick="showLesson('callLesson')">Phone Call Lesson</button>
+    <button onclick="showLesson('upiLesson')">UPI Payment Lesson</button>
+    <button onclick="showLesson('safetyLesson')">Safety Tips</button>
+  </div>
+
+  <div id="lesson">Lesson will appear here...</div>
+
+  <script src="digital.js"></script>
+  <script>
+    Module.onRuntimeInitialized = () => {
+      console.log("WebAssembly loaded!");
+    };
+
+    function showLesson(funcName) {
+      const result = Module.ccall(funcName, "string", [], []);
+      document.getElementById("lesson").innerText = result;
+    }
+  </script>
+</body>
+</html>
